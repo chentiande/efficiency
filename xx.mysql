@@ -1,0 +1,11 @@
+DELIMITER $$
+drop function if exists crc64 $$
+CREATE FUNCTION crc64(data LONGTEXT CHARSET utf8) returns bigint  unsigned
+deterministic
+no sql
+sql security invoker
+comment 'Return a 64 bit CRC of given input,as unsigned big integer'
+BEGIN
+ RETURN CONV(LEFT(MD5(data),16),16,10);
+END $$
+DELIMITER ;
